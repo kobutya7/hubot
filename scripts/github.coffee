@@ -31,7 +31,7 @@ module.exports = (robot) ->
 
     return signature is generated_signature
 
-    tweetForPullRequest = (json) ->
+  tweetForPullRequest = (json) ->
     action = json.action
     pr = json.pull_request
 
@@ -42,7 +42,7 @@ module.exports = (robot) ->
         if pr.merged
           "#{pr.user.login}さんのPull Requestをマージしました #{pr.title} #{pr.html_url}"
 
-    tweetForIssues = (json) ->
+  tweetForIssues = (json) ->
     action = json.action
     issue = json.issue
 
@@ -51,5 +51,4 @@ module.exports = (robot) ->
         "#{issue.user.login}さんがIssueを上げました #{issue.title} #{issue.html_url}"
       when 'closed'
         "#{issue.user.login}さんのIssueがcloseされました #{issue.title} #{issue.html_url}"
-
 
