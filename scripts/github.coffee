@@ -1,7 +1,7 @@
 crypto = require 'crypto'
 
 module.exports = (robot) ->
-  return robot.router.post "/github/webhook", (req, res) ->
+  robot.router.post "/github/webhook", (req, res) ->
     event_type = req.get 'X-Github-Event'
     signature = req.get 'X-Hub-Signature'
 
