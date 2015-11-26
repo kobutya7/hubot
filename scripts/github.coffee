@@ -1,26 +1,6 @@
 crypto = require 'crypto'
 
 module.exports = (robot) ->
-  robot.router.post "/github/webhook", (req, res) ->
-    event_type = req.get 'X-Github-Event'
-    signature = req.get 'X-Hub-Signature'
-
-    unless isCorrentSignature signature, req.body
-      res.status(401).send 'unauthorized'
-      return
-    
-    tweet = switch event_type
-      when 'issue'
-        tweetForIssue req.body
-      when 'pull_request'
-        tweetForPullRequest req.body
-    
-    if tweet?
-      robot.send {}, tweet
-      res.status(201).send 'created'
-    else
-      res.status(200).send 'ok'
-
   isCorrectSignature = (signature, body) ->
     pairs = signature.split '='
     digest_method = pairs[0]
@@ -52,4 +32,23 @@ module.exports = (robot) ->
       when 'closed'
         "#{issue.user.login}さんのIssueがcloseされました #{issue.title} #{issue.html_url}"
   
-  return
+  robot.router.post "/github/webhook", (req, res) ->
+    event_type = req.get 'X-Github-Event'
+    signature = req.get 'X-Hub-Signature'
+
+    unless isCorrentSignature signature, req.body
+      res.status(401).send 'unauthorized'
+      return
+    
+    tweet = switch event_type
+      when 'issue'
+        tweetForIssue req.body
+      when 'pull_request'
+        tweetForPullRequest req.body
+    
+    if tweet?
+      robot.send {}, tweet
+      res.status(201).send 'created'
+    else
+      res.status(200).send 'ok'
+
