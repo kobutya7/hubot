@@ -1,3 +1,5 @@
+crypto = require 'crypto'
+
 module.exports = (robot) ->
   robot.router.post "/github/webhook", (req, res) ->
     event_type = req.get 'X-Github-Event'
@@ -8,10 +10,10 @@ module.exports = (robot) ->
       return
     
     tweet = switch event_type
-             when 'issue'
-               tweetForIssue req.body
-             when 'pull_request'
-               tweetForPullRequest req.body
+      when 'issue'
+        tweetForIssue req.body
+      when 'pull_request'
+        tweetForPullRequest req.body
     
     if tweet?
       robot.send {}, tweet
