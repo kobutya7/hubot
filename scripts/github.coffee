@@ -1,7 +1,7 @@
 crypto = require 'crypto'
 
 module.exports = (robot) ->
-  robot.router.post "/github/webhook", (req, res) ->
+  return robot.router.post "/github/webhook", (req, res) ->
     event_type = req.get 'X-Github-Event'
     signature = req.get 'X-Hub-Signature'
 
@@ -51,4 +51,5 @@ module.exports = (robot) ->
         "#{issue.user.login}さんがIssueを上げました #{issue.title} #{issue.html_url}"
       when 'closed'
         "#{issue.user.login}さんのIssueがcloseされました #{issue.title} #{issue.html_url}"
-
+  
+  return
