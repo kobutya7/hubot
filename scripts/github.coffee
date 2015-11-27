@@ -43,7 +43,7 @@ module.exports = (robot) ->
     console.log('log ..... ' + event_type)
     tweet = switch event_type
       when 'issues'
-        tweetForIssue req.body
+        tweetForIssues req.body
       when 'pull_request'
         tweetForPullRequest req.body
     
