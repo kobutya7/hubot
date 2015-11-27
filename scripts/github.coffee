@@ -1,7 +1,7 @@
 crypto = require 'crypto'
 
 module.exports = (robot) ->
-  return robot.router.post "/github/webhook", (req, res) ->
+  robot.router.post "/github/webhook", (req, res) ->
     isCorrectSignature = (signature, body) ->
       pairs = signature.split '='
       digest_method = pairs[0]
@@ -42,7 +42,7 @@ module.exports = (robot) ->
     
     console.log('log ..... ' + event_type)
     tweet = switch event_type
-      when 'issue'
+      when 'issues'
         tweetForIssue req.body
       when 'pull_request'
         tweetForPullRequest req.body
