@@ -40,15 +40,16 @@ module.exports = (robot) ->
       res.status(401).send 'unauthorized'
       return
     
-    console.log(event_type)
+    console.log('log ..... ' + event_type)
     tweet = switch event_type
       when 'issue'
         tweetForIssue req.body
       when 'pull_request'
         tweetForPullRequest req.body
     
+    console.log('before log ..... ' + tweet)
     if tweet?
-      console.log(tweet)
+      console.log('log ..... ' + tweet)
       robot.send {}, tweet
       res.status(201).send 'created'
     else
