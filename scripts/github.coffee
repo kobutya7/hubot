@@ -36,7 +36,7 @@ module.exports = (robot) ->
     event_type = req.get 'X-Github-Event'
     signature = req.get 'X-Hub-Signature'
 
-    unless isCorrentSignature signature, req.body
+    unless isCorrectSignature signature, req.body
       res.status(401).send 'unauthorized'
       return
     
