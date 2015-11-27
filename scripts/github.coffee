@@ -40,6 +40,7 @@ module.exports = (robot) ->
       res.status(401).send 'unauthorized'
       return
     
+    console.log(event_type)
     tweet = switch event_type
       when 'issue'
         tweetForIssue req.body
@@ -47,6 +48,7 @@ module.exports = (robot) ->
         tweetForPullRequest req.body
     
     if tweet?
+      console.log(tweet)
       robot.send {}, tweet
       res.status(201).send 'created'
     else
