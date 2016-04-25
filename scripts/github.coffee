@@ -47,7 +47,6 @@ module.exports = (robot) ->
         tweetForPullRequest req.body
     
     if tweet?
-      #robot.send {}, tweet
       robot.messageRoom 'general', tweet
       res.status(201).send 'created'
     else
